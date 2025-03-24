@@ -1,2 +1,3 @@
 .env
-.service-account
+service-account.json
+firebase-admin.json
