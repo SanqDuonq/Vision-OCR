@@ -23,9 +23,13 @@ const TicketModel = new mongoose.Schema<ITicket>({
     to: {
         type: String
     },
+    departureDay: {
+        type: Date
+    },
     departureTime: {
         type: Date
     }
+
 })
 
 const Ticket = mongoose.model('Ticket', TicketModel);

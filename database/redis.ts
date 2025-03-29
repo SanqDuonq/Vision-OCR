@@ -1,19 +1,21 @@
 import Redis from 'ioredis';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const redis = new Redis({
-    host: 'redis-11023.c295.ap-southeast-1-1.ec2.redns.redis-cloud.com',
+    host: process.env.REDIS_URL!,
     port: 11023,
     username: 'default',
-    password: '1oHMXOpuMyAA9iYscXSvPRFs16FBunrK',
+    password: process.env.REDIS_PASS,
     retryStrategy: (times) => Math.min(times * 50, 2000)
 });
 
 redis.on('connect', () => {
-    console.log('✅ Connected to Redis');
+    console.log('Connected to Redis');
 });
 
 redis.on('error', (err) => {
-    console.error('❌ Redis Error:', err);
+    console.error('Redis Error:', err);
 });
 
 export default redis;
