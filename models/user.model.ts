@@ -12,6 +12,9 @@ const UserModel = new mongoose.Schema<IUser>({
     avatar: {
         type: String,
     },
+    password: {
+        type: String
+    },
     googleId: {
         type: String
     },

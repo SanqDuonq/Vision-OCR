@@ -7,6 +7,7 @@ export interface ITicket {
     from: string
     to: string
     departureTime: Date,
+    departureDay: Date
 }
 
 export interface ITouristPlace {
