@@ -8,15 +8,20 @@ import returnRes from '../utils/return-response';
 class AuthController {
     signUp = catchError(async(req: Request, res: Response) => {
         const data = await authServices.signUp(req.body);
-        const accessToken = jwtServices.generateJwt(res,data.id);
+        const accessToken = jwtServices.generateJwt(res,data._id.toString());
         returnRes(res, 201, 'Sign up successful', accessToken);
     })
 
     async signIn (req: Request, res: Response) {
         const {email,password} = req.body
         const data = await authServices.signIn(email,password);
-        const accessToken = jwtServices.generateJwt(res,data.id);
+        const accessToken = jwtServices.generateJwt(res,data);
         returnRes(res, 200, 'Sign in successful', accessToken); 
+    }
+
+    async logout (req: Request, res: Response) {
+        jwtServices.clearJwt(res);
+        returnRes(res, 200, 'Log out successful');
     }
 
     async googleAuth (req: Request, res: Response, next: NextFunction) {

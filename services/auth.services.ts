@@ -5,7 +5,9 @@ import { throwError } from "../utils/throw-error";
 
 class AuthServices {
     private async checkEmail(email: string) {
-        return await User.findOne({email}) ?? throwError(400, 'Email is already exists');
+        if (await User.findOne({email})) {
+            throwError(400, 'Email is already exists');
+        }
     }
 
     private async comparePassword(password: string, hashPassword: string)  {
@@ -31,7 +33,7 @@ class AuthServices {
     async signIn(email: string, password: string) {
         const user = await this.getEmailUser(email);
         await this.comparePassword(password, user?.password!);
-        return user!.id;
+        return user!._id.toString();
     }
 }
 

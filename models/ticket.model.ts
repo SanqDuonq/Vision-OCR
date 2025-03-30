@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import { ITicket } from "../interface/ticket.interface";
 
 const TicketModel = new mongoose.Schema<ITicket>({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     airline: {
         type: String
     },
@@ -29,8 +33,7 @@ const TicketModel = new mongoose.Schema<ITicket>({
     departureTime: {
         type: Date
     }
-
-})
+}, {collection: 'Ticket', timestamps: true})
 
 const Ticket = mongoose.model('Ticket', TicketModel);
 export default Ticket;

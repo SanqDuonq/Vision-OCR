@@ -1,4 +1,7 @@
+import mongoose from "mongoose"
+
 export interface ITicket {
+    userId: mongoose.Types.ObjectId,
     airline: string,
     airlineCode: string
     passengerName:  string
