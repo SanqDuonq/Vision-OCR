@@ -4,6 +4,7 @@ import { errorHandler, notFoundRoute } from './middleware/catch-error.middleware
 import ocrRoute from './router/ocr.route';
 import authRoute from './router/auth.route';
 import ticketRoute from './router/ticket.route';
+import placeRoute from './router/place.route';
 import uploadRoute from './router/upload.route';
 import connectMongoDB from './database/mongoDB';
 import redis from './database/redis';
@@ -24,6 +25,7 @@ app.use('/upload',uploadRoute)
 app.use('/api',ocrRoute)
 app.use('/api/auth', authRoute);
 app.use('/api/ticket', ticketRoute);
+app.use('/api/place', placeRoute);
 app.use(notFoundRoute);
 app.use(errorHandler);
 

@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import ocrService from '../services/ocr.service';
+import ocrService from '../services/ocr.services';
 
 class OcrController {
     async ocr(req: Request, res: Response) {

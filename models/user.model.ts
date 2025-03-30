@@ -21,7 +21,7 @@ const UserModel = new mongoose.Schema<IUser>({
     githubId: {
         type: String
     }
-})
+},{collection: 'User', timestamps: true})
 
 const User = mongoose.model('User', UserModel);
 export default User;

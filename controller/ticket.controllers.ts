@@ -1,22 +1,30 @@
 import {Request, Response} from 'express'
 import returnRes from '../utils/return-response';
-import flightService from '../services/ticket.service';
+import flightService from '../services/ticket.services';
 import { catchError } from '../middleware/catch-error.middleware';
-import placeService from '../services/place.service';
 
 class TicketController {
     add = catchError(async (req: Request, res: Response) => {
-        const data = await flightService.add(req.body);
-        const touristPlaces = await placeService.getTouristPlace(req.body.to);
-        returnRes(res, 201, 'Lưu vé thành công', { ...data.toObject(), touristPlaces });
+        const data = await flightService.add(req.body,req.user!);
+        returnRes(res, 201, 'Save ticket successful', data);
     })
 
-    update = catchError(async (req: Request, res: Response) => {
-
+    edit = catchError(async (req: Request, res: Response) => {
+        const {id} = req.params;
+        const edit = await flightService.edit(id, req.body);
+        returnRes(res, 200, 'Update ticket successful', edit);
     })
 
     remove = catchError(async (req: Request, res: Response) => {
-        
+        const {id} = req.params;
+        await flightService.remove(id);
+        returnRes(res, 200, 'Remove ticket successful')
+    })
+
+    get = catchError(async (req: Request, res: Response) => {
+        const userId = req.user!;
+        const data = await flightService.get(userId.toString());
+        returnRes(res, 200, 'Get list ticket successful', data)
     })
 }
 

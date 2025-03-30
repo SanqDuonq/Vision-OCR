@@ -1,24 +1,20 @@
-import {Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
-function verifyToken (req: Request, res: Response, next: NextFunction) {
-    const accessToken = req.cookies.accessToken;
+function verifyToken(req: Request, res: Response, next: NextFunction) {
+    const accessToken = req.cookies.accessToken; 
     if (!accessToken) {
-        res.status(401).json({
-            message: 'Unauthorized - no token provided'
-        })
+        res.status(401).json({ message: "Unauthorized - No token provided" });
         return;
     }
+
     try {
-        const decode = jwt.verify(
-            accessToken, 
-            process.env.JWT_SECRET!,
-        ) as JwtPayload
-        req.user = decode.userId
+        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET!) as {userId: string}
+        req.user = decoded.userId;
+        next();
     } catch (error) {
-        res.status(403).json({
-            message: 'Forbidden - Invalid or expire token'
-        })
+        res.status(403).json({ message: "Forbidden - Invalid or expired token" });
+        return;
     }
 }
 

@@ -5,7 +5,11 @@ dotenv.config();
 
 class JwtServices {
     generateJwt(res: Response, userId: string) {
-        const accessToken = jwt.sign({userId}, process.env.JWT_SECRET!,{expiresIn: '2h'});
+        console.log('Signin', userId)
+        const payload = {
+            userId
+        }
+        const accessToken = jwt.sign(payload, process.env.JWT_SECRET!,{expiresIn: '2h'});
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
