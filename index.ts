@@ -6,12 +6,14 @@ import authRoute from './router/auth.route';
 import ticketRoute from './router/ticket.route';
 import placeRoute from './router/place.route';
 import restaurantRoute from './router/restaurant.route';
+import hotelRoute from './router/hotel.route';
 import uploadRoute from './router/upload.route';
 import connectMongoDB from './database/mongoDB';
 import redis from './database/redis';
 import connectCloudinary from './utils/cloudinary';
 import cookiesParser from 'cookie-parser';
 import passport from 'passport';
+import './utils/passport';
 dotenv.config();
 
 const app = express();
@@ -28,6 +30,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/ticket', ticketRoute);
 app.use('/api/place', placeRoute);
 app.use('/api/restaurant', restaurantRoute);
+app.use('/api/hotel', hotelRoute);
 
 app.use(notFoundRoute);
 app.use(errorHandler);
