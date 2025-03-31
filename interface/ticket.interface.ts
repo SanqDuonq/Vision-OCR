@@ -11,7 +11,9 @@ export interface ITicket {
     to: string
     departureTime: Date,
     departureDay: Date,
-    suggest: {name: string, address: string}[]
+    places: {name: string, address: string, category: string}[],
+    restaurants: {name: string, address: string, category: string}[],
+    hotels: {name: string, address: string, star: number}[]
 }
 
 export interface ITouristPlace {

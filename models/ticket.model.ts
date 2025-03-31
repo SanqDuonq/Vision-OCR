@@ -33,10 +33,25 @@ const TicketModel = new mongoose.Schema<ITicket>({
     departureTime: {
         type: Date
     },
-    suggest: [
+    places: [
         {
             name: {type: String},
-            address: {type: String}
+            address: {type: String},
+            category: {type: String}
+        }
+    ],
+    restaurants: [
+        {
+            name: {type: String},
+            address: {type: String},
+            category: {type: String}
+        }
+    ],
+    hotels: [
+        {
+            name: {type: String},
+            address: {type: String},
+            star: {type: Number}
         }
     ]
 }, {collection: 'Ticket', timestamps: true})

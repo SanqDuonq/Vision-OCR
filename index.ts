@@ -37,4 +37,8 @@ app.use(errorHandler);
 connectMongoDB();
 connectCloudinary();
 
+app.listen(port, () => {
+    console.log(`App started at http://localhost:${port}`)
+})
+
 export default app;

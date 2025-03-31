@@ -2,6 +2,8 @@ import express from 'express'
 import authController from '../controller/auth.controllers';
 import { validateRequest } from '../middleware/validate.middleware';
 import { signInSchema, signUpSchema } from '../schema/auth.schema';
+import authControllers from '../controller/auth.controllers';
+import middleware from '../middleware/jwt.middleware';
 
 const router = express.Router();
 
@@ -15,5 +17,6 @@ router.get('/google/callback', authController.googleCallback);
 router.get('/github', authController.githubAuth);
 router.get('/github/callback', authController.githubCallback);
 
+router.get('/profile-user',middleware.verifyToken, authControllers.getProfileUser);
 
 export default router;
