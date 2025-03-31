@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const signUpSchema = z.object({
-    fullname: z.string().min(1, 'Fullname is required').max(30, 'Fullname must be exceed 30 characters'),
+    name: z.string().min(1, 'Fullname is required').max(30, 'Fullname must be exceed 30 characters'),
     email: z.string().min(1, 'Email is required').endsWith('@gmail.com', 'Email is must be @gmail.com'),
     password: z.string().regex(
         new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#+^])[A-Za-z\\d@$!%*?&#+^]{8,32}$'),
