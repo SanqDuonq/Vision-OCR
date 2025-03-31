@@ -41,3 +41,5 @@ app.listen(port, () => {
     redis
     connectCloudinary();
 })
+
+export default app;
