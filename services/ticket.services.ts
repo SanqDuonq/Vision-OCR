@@ -1,7 +1,9 @@
 import { ITicket } from "../interface/ticket.interface";
 import Ticket from "../models/ticket.model";
 import { throwError } from "../utils/throw-error";
+import hotelServices from "./hotel.services";
 import placeServices from "./place.services";
+import restaurantServices from "./restaurant.services";
 
 class TicketServices {
     private async checkTicket(airlineCode: string, seat: string) {
@@ -14,10 +16,27 @@ class TicketServices {
             throwError(409,"Vé đã tồn tại!");
         }
         const suggest = await placeServices.get(ticket.to);
-        ticket.suggest = suggest.map((place) => {
+        ticket.places = suggest.map((place) => {
             return {
                 name: place.name,
-                address: place.address
+                address: place.address,
+                category: place.category
+            }
+        })
+        const suggestRes = await restaurantServices.get(ticket.to);
+        ticket.restaurants = suggestRes.map((place) => {
+            return {
+                name: place.name,
+                address: place.address,
+                category: place.category
+            }
+        })
+        const suggestHot = await hotelServices.get(ticket.to);
+        ticket.hotels = suggestHot.map((place) => {
+            return {
+                name: place.name,
+                address: place.address,
+                star: place.star
             }
         })
         return await Ticket.create({...ticket, userId});

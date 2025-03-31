@@ -4,6 +4,7 @@ import { catchError } from '../middleware/catch-error.middleware';
 import authServices from '../services/auth.services';
 import jwtServices from '../services/jwt.services';
 import returnRes from '../utils/return-response';
+import User from '../models/user.model';
 
 class AuthController {
     signUp = catchError(async(req: Request, res: Response) => {
@@ -12,17 +13,17 @@ class AuthController {
         returnRes(res, 201, 'Sign up successful', accessToken);
     })
 
-    async signIn (req: Request, res: Response) {
+    signIn = catchError(async(req: Request, res: Response) => {
         const {email,password} = req.body
         const data = await authServices.signIn(email,password);
         const accessToken = jwtServices.generateJwt(res,data);
         returnRes(res, 200, 'Sign in successful', accessToken); 
-    }
+    })
 
-    async logout (req: Request, res: Response) {
+    logout = catchError(async(req: Request, res: Response) => {
         jwtServices.clearJwt(res);
         returnRes(res, 200, 'Log out successful');
-    }
+    })
 
     async googleAuth (req: Request, res: Response, next: NextFunction) {
         passport.authenticate('google', {scope: ['profile', 'email']})(req,res,next)
@@ -51,6 +52,12 @@ class AuthController {
             returnRes(res, 200, 'Github authentication successful', {accessToken, user})
         })(req, res, next);
     }
+
+    getProfileUser = catchError(async (req: Request, res: Response) => {
+        const data = await User.findOne({_id: req.user!});
+        console.log(data)
+        returnRes(res, 200, 'Get profile user successful', data!);
+    })  
 }
 
 export default new AuthController();
