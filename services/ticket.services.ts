@@ -1,6 +1,7 @@
 import { ITicket } from "../interface/ticket.interface";
 import Ticket from "../models/ticket.model";
 import { throwError } from "../utils/throw-error";
+import placeServices from "./place.services";
 
 class TicketServices {
     private async checkTicket(airlineCode: string, seat: string) {
@@ -12,7 +13,13 @@ class TicketServices {
         if (existingTicket) {
             throwError(409,"Vé đã tồn tại!");
         }
-        console.log(userId)
+        const suggest = await placeServices.get(ticket.to);
+        ticket.suggest = suggest.map((place) => {
+            return {
+                name: place.name,
+                address: place.address
+            }
+        })
         return await Ticket.create({...ticket, userId});
     }
 

@@ -2,7 +2,7 @@ import { IPlace } from "../interface/place.interface";
 import Place from "../models/place.model";
 import { throwError } from '../utils/throw-error';
 
-class PlaceServices {
+class PlaceServices {    
 	async add(place: IPlace) {
 		return await Place.create(place);
 	}   
@@ -29,6 +29,7 @@ class PlaceServices {
             {$match: {address: {$regex: regex}}},
             {$sample: {size: 4}}
         ])
+        console.log('Found places:', data);
         return data;
     }    
 }

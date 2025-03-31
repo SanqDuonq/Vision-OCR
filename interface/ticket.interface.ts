@@ -10,7 +10,8 @@ export interface ITicket {
     from: string
     to: string
     departureTime: Date,
-    departureDay: Date
+    departureDay: Date,
+    suggest: {name: string, address: string}[]
 }
 
 export interface ITouristPlace {

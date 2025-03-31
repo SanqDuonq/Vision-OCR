@@ -11,7 +11,6 @@ export const signUpSchema = z.object({
 })
 
 export const signInSchema = z.object({
-    email: z.string().min(1, 'Email is required').endsWith('@gmail.com'),
+    email: z.string().min(1, 'Email is required').endsWith('@gmail.com', 'Email is must be @gmail.com'),
     password: z.string().min(1, 'Password is required').max(32, 'Password must be at under 32 characters')
 })
-

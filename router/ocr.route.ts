@@ -1,9 +1,10 @@
 import express from 'express';
-import upload from '../middleware/upload.middleware';
 import ocrController from '../controller/ocr.controllers';
+import uploadGoogle from '../middleware/upload-google.middleware';
+import middleware from '../middleware/jwt.middleware';
 
 const router = express.Router();
 
-router.post('/ocr', upload.single('image'), ocrController.ocr);
+router.post('/scan',middleware.verifyToken, uploadGoogle.single('image'), ocrController.ocr);
 
 export default router;

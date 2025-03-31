@@ -8,7 +8,11 @@ export const ticketSchema = z.object({
     seat: z.string().min(1, 'Seat is required'),
     from: z.string().min(1, 'From is required'),
     to: z.string().min(1, 'To is required'),
-    departureDay: z.string().min(1, 'Departure day is required'),
+    departureDay: z.string().min(1, 'Departure day is required').refine((value) => {
+        const current = new Date();
+        const departure = new Date(value);
+        return departure > current
+    }, 'Departure day cannot be in the past'),
     departureTime: z.string().min(1, 'Departure time is required')
 });
 
