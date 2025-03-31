@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 class PlaceController {
     add = catchError(async (req: Request, res: Response) => {
         const data = await placeServices.add(req.body);
-        returnRes(res, 201, 'Add place successful', data);
+        returnRes(res, 201, 'Add place successful', data)
     })
 
     edit = catchError(async (req: Request, res: Response) => {
@@ -23,8 +23,8 @@ class PlaceController {
     })
 
     get = catchError(async (req: Request, res: Response) => {
-        const {address} = req.query;
-        const data = await placeServices.get(address as string) ;
+        const {address} = req.body;
+        const data = await placeServices.get(address) ;
         returnRes(res, 200, 'Get data successful', data);
     })
 }

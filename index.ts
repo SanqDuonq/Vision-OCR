@@ -5,6 +5,7 @@ import ocrRoute from './router/ocr.route';
 import authRoute from './router/auth.route';
 import ticketRoute from './router/ticket.route';
 import placeRoute from './router/place.route';
+import restaurantRoute from './router/restaurant.route';
 import uploadRoute from './router/upload.route';
 import connectMongoDB from './database/mongoDB';
 import redis from './database/redis';
@@ -22,10 +23,12 @@ app.use(cookiesParser());
 app.use(passport.initialize());
 
 app.use('/upload',uploadRoute)
-app.use('/api',ocrRoute)
+app.use('/api/ocr',ocrRoute)
 app.use('/api/auth', authRoute);
 app.use('/api/ticket', ticketRoute);
 app.use('/api/place', placeRoute);
+app.use('/api/restaurant', restaurantRoute);
+
 app.use(notFoundRoute);
 app.use(errorHandler);
 

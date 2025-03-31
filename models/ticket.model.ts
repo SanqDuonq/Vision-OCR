@@ -32,7 +32,13 @@ const TicketModel = new mongoose.Schema<ITicket>({
     },
     departureTime: {
         type: Date
-    }
+    },
+    suggest: [
+        {
+            name: {type: String},
+            address: {type: String}
+        }
+    ]
 }, {collection: 'Ticket', timestamps: true})
 
 const Ticket = mongoose.model('Ticket', TicketModel);

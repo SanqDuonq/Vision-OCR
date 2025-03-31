@@ -5,7 +5,6 @@ dotenv.config();
 
 class JwtServices {
     generateJwt(res: Response, userId: string) {
-        console.log('Signin', userId)
         const payload = {
             userId
         }
