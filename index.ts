@@ -9,7 +9,6 @@ import restaurantRoute from './router/restaurant.route';
 import hotelRoute from './router/hotel.route';
 import uploadRoute from './router/upload.route';
 import connectMongoDB from './database/mongoDB';
-import redis from './database/redis';
 import connectCloudinary from './utils/cloudinary';
 import cookiesParser from 'cookie-parser';
 import passport from 'passport';
@@ -18,7 +17,7 @@ dotenv.config();
 
 const app = express();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(cookiesParser());
@@ -35,11 +34,7 @@ app.use('/api/hotel', hotelRoute);
 app.use(notFoundRoute);
 app.use(errorHandler);
 
-app.listen(port, () => {
-    console.log(`App started at http://localhost:${port}`);
-    connectMongoDB();
-    redis
-    connectCloudinary();
-})
+connectMongoDB();
+connectCloudinary();
 
 export default app;
